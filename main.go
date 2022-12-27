@@ -8,15 +8,15 @@ import (
 )
 
 func initializeRouter() {
-	router := mux.NewRouter()
+	r := mux.NewRouter()
 
-	router.HandleFunc("/users", GetUsers).Methods("GET")
-	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
-	router.HandleFunc("/users", CreatetUsers).Methods("POST")
-	router.HandleFunc("/users/{id}", UpdateUsers).Methods("PATCH")
-	router.HandleFunc("/users/{id}", DeleteUsers).Methods("delete")
+	r.HandleFunc("/users", GetUsers).Methods("GET")
+	r.HandleFunc("/users/{id}", GetUser).Methods("GET")
+	r.HandleFunc("/users", CreateUser).Methods("POST")
+	r.HandleFunc("/users/{id}", UpdateUser).Methods("PATCH")
+	r.HandleFunc("/users/{id}", DeleteUser).Methods("delete")
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
 func main() {
