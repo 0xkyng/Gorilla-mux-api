@@ -72,5 +72,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	var user User
+	DB.Delete(&user, params["id"])
+	json.NewEncoder(w).Encode("The User is deleted successfully")
 
 }
