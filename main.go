@@ -20,5 +20,6 @@ func initializeRouter() {
 }
 
 func main() {
+	InitialMigration()
 	initializeRouter()
 }

@@ -1,11 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
-	"gorm.io/gorm"
 	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
@@ -27,6 +28,7 @@ func InitialMigration() {
 		fmt.Println(err.Error())
 		panic("Cannot connect to DB")
 	}
+	DB.AutoMigrate(&User{})
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
@@ -38,6 +40,13 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-Type", "application/json")
+	var user User
+	json.NewDecoder(r.Body).Decode(&user)
+	// save the data decoded
+	DB.Create(&user)
+	// Pass the data to the browser
+	json.NewEncoder(w).Encode(user)
 
 }
 
