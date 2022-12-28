@@ -17,14 +17,14 @@ const DNS = "root:G8keeper@mysql@tcp(127.0.0.1:3306)/gorrila-mux-api?charset=utf
 
 
 type User struct{
-	gorm.Model
+	gorm.Model  // Converting the struct into ORM Model
 	FirstName  string `json:"firstname"`
 	LastName   string  `json:"lastname"`
 	Email      string   `json:"email"`
 }
 
 func InitialMigration() {
-	DB, err = gorm.Open(mysql.Open(DNS), &gorm.Config{})
+	DB, err = gorm.Open(mysql.Open(DNS), &gorm.Config{}) // Connecting to database
 	if err != nil {
 		fmt.Println(err.Error())
 		panic("Cannot connect to DB")
