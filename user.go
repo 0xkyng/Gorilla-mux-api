@@ -35,10 +35,13 @@ func InitialMigration() {
 	DB.AutoMigrate(&User{})
 }
 
+// GetUsers gets the list of users available
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var users []User
-	DB.Find(&users)
+	//Fetching data from Db
+	DB.Find(&users) 
+	// Encode fetched data & send it back to the server
 	json.NewEncoder(w).Encode(users)
 
 }
