@@ -46,12 +46,16 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetUser gets a particular user
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	// Set content type to application json
 	w.Header().Set("Content-Type", "application/json")
+	// Get the user id from the parameter
 	params := mux.Vars(r)
 	var user User
+	// Find the data using the id from params
 	DB.First(&user, params["id"])
+	// Encode fetched data & send it back to the server
 	json.NewEncoder(w).Encode(user)
 	
 }
