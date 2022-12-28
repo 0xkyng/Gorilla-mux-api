@@ -44,6 +44,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
+	// Set content type to application json
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	var user User
@@ -53,12 +54,15 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
+	 // Set content type to application json
 	w.Header().Set("content-Type", "application/json")
 	var user User
-	json.NewDecoder(r.Body).Decode(&user)
+	// Use json model to decode the data gotten from the request body
+	// To the user
+	json.NewDecoder(r.Body).Decode(&user) 
 	// save the data decoded
 	DB.Create(&user)
-	// Pass the data to the browser
+	// Pass the saved data back to the browser
 	json.NewEncoder(w).Encode(user)
 
 }
