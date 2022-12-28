@@ -24,11 +24,14 @@ type User struct{
 }
 
 func InitialMigration() {
-	DB, err = gorm.Open(mysql.Open(DNS), &gorm.Config{}) // Connecting to database
+	// 1. Connect to a database
+	// 2. Auto migrate data frm the DB to the struct
+	DB, err = gorm.Open(mysql.Open(DNS), &gorm.Config{}) // 1. Connecting to database
 	if err != nil {
 		fmt.Println(err.Error())
 		panic("Cannot connect to DB")
 	}
+	// 2. Enabling auto migration
 	DB.AutoMigrate(&User{})
 }
 
